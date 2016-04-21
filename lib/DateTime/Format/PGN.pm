@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package DateTime::Format::PGN;
-# ABSTRACT: parse and format date fields from chess game databases in PGN format
+# ABSTRACT: a Perl module for parsing and formatting date fields in chess game databases in PGN format
 
 use DateTime::Incomplete 0.08;
 use Params::Validate 1.23 qw( validate BOOLEAN );
@@ -189,7 +189,7 @@ sub format_datetime {
 
 1;
 
-=head1 Source
+=head1 Sources
 
 L<PGN spec|https://www.chessclub.com/user/help/PGN-spec> by Steven J. Edwards.
 
