@@ -33,7 +33,7 @@ Options are Boolean C<use_incomplete> (default 0) and Boolean C<fix_errors> (def
     my $f = DateTime::Format::PGN->new({fix_errors => 1, use_incomplete => 1});
     
 PGN allows for incomplete dates while C<DateTime> does not. All missing values in DateTime default to 1. So PGN C<????.??.??> becomes 
-C<0001.01.01> with C<DateTime>. If C<use_incomplete => 1>, a C<DateTime::Incomplete> object is used instead in order to preserve the question marks.
+C<0001.01.01> with C<DateTime>. If C<use_incomplete => 1>, a C<DateTime::Incomplete> object is used instead where missing values are C<undef>.
 
 I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If C<fix_errors => 1>, an attempt is made to parse the 
 date anyway.
