@@ -17,6 +17,7 @@ use Params::Validate 1.23 qw( validate BOOLEAN );
     # 2004.04.23
     print $f->format_datetime($dt);
     
+    # return a DateTime::Incomplete object:
     my $fi = DateTime::Format::PGN->new( { use_incomplete => 1} );
     my $dti = $fi->parse_datetime( '2004.??.??' );
     
@@ -25,7 +26,17 @@ use Params::Validate 1.23 qw( validate BOOLEAN );
 
 =head1 METHODS
 
-=method new()
+=method new(%options)
+
+Options are Boolean C<use_incomplete> (default 0) and Boolean C<fix_errors> (default 0).
+
+    my $f = DateTime::Format::PGN->new({fix_errors => 1, use_incomplete => 1});
+    
+PGN allows for incomplete dates while C<DateTime> does not. All missing values in DateTime default to 1. So PGN C<????.??.??> becomes 
+C<0001.01.01> with C<DateTime>. If C<use_incomplete => 1>, a C<DateTime::Incomplete> object is used instead in order to preserve the question marks.
+
+I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If C<fix_errors => 1>, an attempt is made to parse the 
+date anyway.
 
 =cut
 
@@ -62,6 +73,9 @@ sub new {
 
 
 =method parse_datetime($string)
+
+Returns a C<DateTime> object or a C<DateTime::Incomplete> object if option C<use_incomplete => 1>. Since the first recorded chess game 
+is from 1485, years with a leading 0 are handled as errors.
 
 =cut
 
@@ -158,6 +172,9 @@ sub parse_datetime {
 
 =method format_datetime($datetime)
 
+Given a C<DateTime> object, this methods returns an PGN date string. If the date is incomplete, use 
+a C<DateTime::Incomplete> object (the C<use_incomplete> option does not affect the formatting here).
+
 =cut
 
 sub format_datetime {
@@ -172,7 +189,13 @@ sub format_datetime {
 
 1;
 
+=head1 Source
+
+L<PGN spec|https://www.chessclub.com/user/help/PGN-spec> by Steven J. Edwards.
+
 =head1 See also
 
 =for :list
 * L<Chess::PGN::Parse>
+* L<DateTime::Incomplete>
+* L<http://datetime.perl.org/>

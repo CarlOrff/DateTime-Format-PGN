@@ -16,6 +16,7 @@ version 0.001
        # 2004.04.23
        print $f->format_datetime($dt);
        
+       # return a DateTime::Incomplete object:
        my $fi = DateTime::Format::PGN->new( { use_incomplete => 1} );
        my $dti = $fi->parse_datetime( '2004.??.??' );
        
@@ -24,15 +25,37 @@ version 0.001
 
 # METHODS
 
-## new()
+## new(%options)
+
+Options are Boolean `use_incomplete` (default 0) and Boolean `fix_errors` (default 0).
+
+    my $f = DateTime::Format::PGN->new({fix_errors => 1, use_incomplete => 1});
+
+PGN allows for incomplete dates while `DateTime` does not. All missing values in DateTime default to 1. So PGN `????.??.??` becomes 
+`0001.01.01` with `DateTime`. If `use_incomplete =` 1>, a `DateTime::Incomplete` object is used instead in order to preserve the question marks.
+
+I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If `fix_errors =` 1>, an attempt is made to parse the 
+date anyway.
 
 ## parse\_datetime($string)
 
+Returns a `DateTime` object or a `DateTime::Incomplete` object if option `use_incomplete =` 1>. Since the first recorded chess game 
+is from 1485, years with a leading 0 are handled as errors.
+
 ## format\_datetime($datetime)
+
+Given a `DateTime` object, this methods returns an PGN date string. If the date is incomplete, use 
+a `DateTime::Incomplete` object (the `use_incomplete` option does not affect the formatting here).
+
+# Source
+
+[PGN spec](https://www.chessclub.com/user/help/PGN-spec) by Steven J. Edwards.
 
 # See also
 
 - [Chess::PGN::Parse](https://metacpan.org/pod/Chess::PGN::Parse)
+- [DateTime::Incomplete](https://metacpan.org/pod/DateTime::Incomplete)
+- [http://datetime.perl.org/](http://datetime.perl.org/)
 
 # AUTHOR
 
