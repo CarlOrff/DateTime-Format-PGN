@@ -77,7 +77,7 @@ sub new {
 =method parse_datetime($string)
 
 Returns a C<DateTime> object or a C<DateTime::Incomplete> object if option C<use_incomplete => 1>. Since the first recorded chess game 
-is from 1485, years with a leading 0 are handled as errors.
+was played 1485, years with a leading 0 are handled as errors.
 
 =cut
 
