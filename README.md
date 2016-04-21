@@ -4,7 +4,7 @@ DateTime::Format::PGN - a Perl module for parsing and formatting date fields in 
 
 # VERSION
 
-version 0.01
+version 0.02
 
 # SYNOPSIS
 
