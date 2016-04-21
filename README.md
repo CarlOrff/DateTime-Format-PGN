@@ -40,7 +40,7 @@ date anyway.
 ## parse\_datetime($string)
 
 Returns a `DateTime` object or a `DateTime::Incomplete` object if option `use_incomplete =` 1>. Since the first recorded chess game 
-is from 1485, years with a leading 0 are handled as errors.
+was played 1485, years with a leading 0 are handled as errors.
 
 ## format\_datetime($datetime)
 
