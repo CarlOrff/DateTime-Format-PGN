@@ -7,6 +7,8 @@ package DateTime::Format::PGN;
 use DateTime::Incomplete 0.08;
 use Params::Validate 1.23 qw( validate BOOLEAN );
 
+our $VERSION = '0.01';
+
 =head1 SYNOPSIS
 
     use DateTime::Format::PGN;

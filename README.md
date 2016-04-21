@@ -4,7 +4,7 @@ DateTime::Format::PGN - a Perl module for parsing and formatting date fields in 
 
 # VERSION
 
-version 0.001
+version 0.01
 
 # SYNOPSIS
 
@@ -32,7 +32,7 @@ Options are Boolean `use_incomplete` (default 0) and Boolean `fix_errors` (defau
     my $f = DateTime::Format::PGN->new({fix_errors => 1, use_incomplete => 1});
 
 PGN allows for incomplete dates while `DateTime` does not. All missing values in DateTime default to 1. So PGN `????.??.??` becomes 
-`0001.01.01` with `DateTime`. If `use_incomplete =` 1>, a `DateTime::Incomplete` object is used instead in order to preserve the question marks.
+`0001.01.01` with `DateTime`. If `use_incomplete =` 1>, a `DateTime::Incomplete` object is used instead where missing values are `undef`.
 
 I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If `fix_errors =` 1>, an attempt is made to parse the 
 date anyway.
