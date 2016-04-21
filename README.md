@@ -1,6 +1,6 @@
 # NAME
 
-DateTime::Format::PGN - parse and format date fields from chess game databases in PGN format
+DateTime::Format::PGN - a Perl module for parsing and formatting date fields in chess game databases in PGN format
 
 # VERSION
 

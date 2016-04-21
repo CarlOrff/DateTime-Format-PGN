@@ -189,7 +189,7 @@ sub format_datetime {
 
 1;
 
-=head1 Sources
+=head1 Source
 
 L<PGN spec|https://www.chessclub.com/user/help/PGN-spec> by Steven J. Edwards.
 
