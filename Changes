@@ -1,5 +1,13 @@
 Revision history for DateTime-Format-PGN
 
-{{$NEXT}}
+0.01      2016-04-21 14:55:58+02:00 Europe/Berlin
         First CPAN upload.
+        
+0.02      2016-04-21 15:00:52+02:00 Europe/Berlin
+        Second CPAN upload due to Dist::Zilla mishandling.
+        
+{{$NEXT}}
+        Broken GitHub URLs fixed.
+        Added comments to dist.ini.
+        POD syntax fixed.
 

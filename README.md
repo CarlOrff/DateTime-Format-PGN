@@ -4,7 +4,7 @@ DateTime::Format::PGN - a Perl module for parsing and formatting date fields in 
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # SYNOPSIS
 
@@ -14,14 +14,14 @@ version 0.02
        my $dt = $f->parse_datetime( '2004.04.23' );
     
        # 2004.04.23
-       print $f->format_datetime($dt);
+       print $f->format_datetime( $dt );
        
        # return a DateTime::Incomplete object:
        my $fi = DateTime::Format::PGN->new( { use_incomplete => 1} );
        my $dti = $fi->parse_datetime( '2004.??.??' );
        
        # 2004.??.??
-       print $fi->format_datetime($dti);
+       print $fi->format_datetime( $dti );
 
 # METHODS
 
@@ -29,17 +29,17 @@ version 0.02
 
 Options are Boolean `use_incomplete` (default 0) and Boolean `fix_errors` (default 0).
 
-    my $f = DateTime::Format::PGN->new({fix_errors => 1, use_incomplete => 1});
+    my $f = DateTime::Format::PGN->new( { fix_errors => 1, use_incomplete => 1 } );
 
-PGN allows for incomplete dates while `DateTime` does not. All missing values in DateTime default to 1. So PGN `????.??.??` becomes 
-`0001.01.01` with `DateTime`. If `use_incomplete =` 1>, a `DateTime::Incomplete` object is used instead where missing values are `undef`.
+PGN allows for incomplete dates while `DateTime` does not. All missing date values in `DateTime` default to 1. So PGN `????.??.??` becomes 
+`0001.01.01` with `DateTime`. If `use_incomplete => 1`, a `DateTime::Incomplete` object is used instead where missing values are `undef`.
 
-I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If `fix_errors =` 1>, an attempt is made to parse the 
+I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If `fix_errors => 1`, an attempt is made to parse the 
 date anyway.
 
 ## parse\_datetime($string)
 
-Returns a `DateTime` object or a `DateTime::Incomplete` object if option `use_incomplete =` 1>. Since the first recorded chess game 
+Returns a `DateTime` object or a `DateTime::Incomplete` object if option `use_incomplete => 1`. Since the first recorded chess game 
 was played 1485, years with a leading 0 are handled as errors.
 
 ## format\_datetime($datetime)

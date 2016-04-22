@@ -4,10 +4,10 @@ use warnings;
 package DateTime::Format::PGN;
 # ABSTRACT: a Perl module for parsing and formatting date fields in chess game databases in PGN format
 
+our $VERSION = '0.03';
+
 use DateTime::Incomplete 0.08;
 use Params::Validate 1.23 qw( validate BOOLEAN );
-
-our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -17,14 +17,14 @@ our $VERSION = '0.02';
     my $dt = $f->parse_datetime( '2004.04.23' );
  
     # 2004.04.23
-    print $f->format_datetime($dt);
+    print $f->format_datetime( $dt );
     
     # return a DateTime::Incomplete object:
     my $fi = DateTime::Format::PGN->new( { use_incomplete => 1} );
     my $dti = $fi->parse_datetime( '2004.??.??' );
     
     # 2004.??.??
-    print $fi->format_datetime($dti);
+    print $fi->format_datetime( $dti );
 
 =head1 METHODS
 
@@ -32,12 +32,12 @@ our $VERSION = '0.02';
 
 Options are Boolean C<use_incomplete> (default 0) and Boolean C<fix_errors> (default 0).
 
-    my $f = DateTime::Format::PGN->new({fix_errors => 1, use_incomplete => 1});
+    my $f = DateTime::Format::PGN->new( { fix_errors => 1, use_incomplete => 1 } );
     
-PGN allows for incomplete dates while C<DateTime> does not. All missing values in C<DateTime> default to 1. So PGN C<????.??.??> becomes 
-C<0001.01.01> with C<DateTime>. If C<use_incomplete => 1>, a C<DateTime::Incomplete> object is used instead where missing values are C<undef>.
+PGN allows for incomplete dates while C<DateTime> does not. All missing date values in C<DateTime> default to 1. So PGN C<????.??.??> becomes 
+C<0001.01.01> with C<DateTime>. If C<use_incomplete =E<gt> 1>, a C<DateTime::Incomplete> object is used instead where missing values are C<undef>.
 
-I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If C<fix_errors => 1>, an attempt is made to parse the 
+I observed a lot of mistaken date formats in PGN databases downloaded from the internet. If C<fix_errors =E<gt> 1>, an attempt is made to parse the 
 date anyway.
 
 =cut
@@ -76,7 +76,7 @@ sub new {
 
 =method parse_datetime($string)
 
-Returns a C<DateTime> object or a C<DateTime::Incomplete> object if option C<use_incomplete => 1>. Since the first recorded chess game 
+Returns a C<DateTime> object or a C<DateTime::Incomplete> object if option C<use_incomplete =E<gt> 1>. Since the first recorded chess game 
 was played 1485, years with a leading 0 are handled as errors.
 
 =cut
