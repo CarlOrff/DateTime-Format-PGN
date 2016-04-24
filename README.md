@@ -4,7 +4,7 @@ DateTime::Format::PGN - a Perl module for parsing and formatting date fields in 
 
 # VERSION
 
-version 0.03
+version 0.04
 
 # SYNOPSIS
 
@@ -44,7 +44,7 @@ was played 1485, years with a leading 0 are handled as errors.
 
 ## format\_datetime($datetime)
 
-Given a `DateTime` object, this methods returns an PGN date string. If the date is incomplete, use 
+Given a `DateTime` object, this methods returns a PGN date string. If the date is incomplete, use 
 a `DateTime::Incomplete` object (the `use_incomplete` option does not affect the formatting here).
 
 # Source

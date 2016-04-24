@@ -4,7 +4,7 @@ use warnings;
 package DateTime::Format::PGN;
 # ABSTRACT: a Perl module for parsing and formatting date fields in chess game databases in PGN format
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use DateTime::Incomplete 0.08;
 use Params::Validate 1.23 qw( validate BOOLEAN );
@@ -174,7 +174,7 @@ sub parse_datetime {
 
 =method format_datetime($datetime)
 
-Given a C<DateTime> object, this methods returns an PGN date string. If the date is incomplete, use 
+Given a C<DateTime> object, this methods returns a PGN date string. If the date is incomplete, use 
 a C<DateTime::Incomplete> object (the C<use_incomplete> option does not affect the formatting here).
 
 =cut
