@@ -4,7 +4,7 @@ use warnings;
 package DateTime::Format::PGN;
 # ABSTRACT: a Perl module for parsing and formatting date fields in chess game databases in PGN format
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use DateTime::Incomplete 0.08;
 use Params::Validate 1.23 qw( validate BOOLEAN );
@@ -100,32 +100,63 @@ sub parse_datetime {
                 $matches[0] = $2;
                 
                 # Try to find month and day.
-                if ($date =~ /(\A|\D)(\d{1,2})\D+(\d{1,2})(\D|\Z)/) {
-                    if (($2 < 13 && $3 > 12 && $3 < 32 && $2 > 0 && $3 > 0) || ($2 == $3 && $2 < 13 && $2 > 0)) {
+                if ($date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])\D+(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/) {
+                    if (($2 < 13 && $3 > 12) || ($2 == $3 && $2 < 13)) {
                         $matches[1] = $2;
                         $matches[2] = $3;
                     }
-                    elsif ($3 < 13 && $2 > 12 && $2 < 32 && $2 > 0 && $3 > 0) {
+                    elsif ($3 < 13 && $2 > 12) {
                         $matches[1] = $3;
                         $matches[2] = $2;
                     }
                 }
-                elsif ($date =~ /(January|February|March|April|May|June|July|August|September|October|November|December)/) {
-                
-                    if (index($1,'January') > -1) {$matches[1] = 1}
-                    elsif (index($1,'February') > -1) {$matches[1] = 2}
-                    elsif (index($1,'March') > -1) {$matches[1] = 3}
-                    elsif (index($1,'April') > -1) {$matches[1] = 4}
-                    elsif (index($1,'May') > -1) {$matches[1] = 5}
-                    elsif (index($1,'June') > -1) {$matches[1] = 6}
-                    elsif (index($1,'July') > -1) {$matches[1] = 7}
-                    elsif (index($1,'August') > -1) {$matches[1] = 8}
-                    elsif (index($1,'September') > -1) {$matches[1] = 9}
-                    elsif (index($1,'October') > -1) {$matches[1] = 10}
-                    elsif (index($1,'November') > -1) {$matches[1] = 11}
-                    else {$matches[1] = 12}
-
-                    $matches[2] = $2 if $date =~ /(\A|\D)(\d{1,2})(\D|\Z)/ && $2 < 32 && $2 > 0;
+                elsif (index($date,'Jan') > -1) {
+                    $matches[1] = 1;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Feb') > -1) {
+                    $matches[1] = 2;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Mar') > -1) {
+                    $matches[1] = 3;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Apr') > -1) {
+                    $matches[1] = 4;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|30)(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'May') > -1) {
+                    $matches[1] = 5;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Jun') > -1) {
+                    $matches[1] = 6;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|30)(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Jul') > -1) {
+                    $matches[1] = 7;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Aug') > -1) {
+                    $matches[1] = 8;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Sep') > -1) {
+                    $matches[1] = 9;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|30)(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Oct') > -1) {
+                    $matches[1] = 10;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Nov') > -1) {
+                    $matches[1] = 11;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|30)(\D|\Z)/ && $2 < 32 && $2 > 0;
+                }
+                elsif (index($date,'Dec') > -1) {
+                    $matches[1] = 12;
+                    $matches[2] = $2 if $date =~ /(\A|\D)(0?[1-9]|[1-2][0-9]|3[0-1])(\D|\Z)/ && $2 < 32 && $2 > 0;
                 }
                 
                 # check month length
@@ -158,7 +189,7 @@ sub parse_datetime {
             formatter  => $self,
         );
     }
-    # The usual DateTime object.
+    # Otherwise the usual DateTime object.
     else {
     
         grep { $_  = 1 if index($_,'?') > -1 } @matches;
